@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: WebApp
+metadata:
+  name: foo
+  annotations:
+    enableCloudIngress: "true"
+    backstageName: bar
+spec:
+  containerName: packages.foo.com/docker-dev-ae/foo
+  containerTag: '0.0.25'
+  port: 80

@@ -1,0 +1,23 @@
+name: Test YQ Inplace Write
+
+on:
+  push:
+
+env:
+  GITHUB_CONTEXT: ${{ toJson(github) }}
+
+jobs:
+  yq:
+    runs-on: ubunty-latest
+    steps:
+
+      - name: Output envs
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Edit webapp version
+        uses: mikefarah/yq@v4
+        with:
+          cmd: yq eval -i '.spec.containerTag = ${{github.event.head_commit.message}}' k8s/prod/webapp.yaml
